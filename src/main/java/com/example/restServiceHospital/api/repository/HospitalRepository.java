@@ -16,15 +16,16 @@ public interface HospitalRepository extends CrudRepository<Hospital, Integer> {
 
     @Modifying
     @Transactional
-    @Query(value = "INSERT INTO hospital(hospital_name, hospital_location_lat, hospital_location_long) VALUES (:driverName, :hospitalLocationLat, :hospitalLocationLong)", nativeQuery = true)
-    void insertData(@Param("hospitalName") String hospitalName, @Param("hospitalLocationLat") float hospitalLocationLat, @Param("hospitalLocationLong") float hospitalLocationLong);
+    @Query(value = "INSERT INTO hospital(hospital_name, hospital_location_lat, hospital_location_long, number_of_seats) VALUES (:hospitalName, :hospitalLocationLat, :hospitalLocationLong, :numberOfSeats)", nativeQuery = true)
+    void insertData(@Param("hospitalName") String hospitalName, @Param("hospitalLocationLat") float hospitalLocationLat, @Param("hospitalLocationLong") float hospitalLocationLong, @Param("numberOfSeats") int numberOfSeats);
 
     @Query("SELECT h FROM Hospital h WHERE h.numberOfSeats > 0")
     List<Hospital> findAvailableHospitals();
 
     @Modifying
-    @Query("UPDATE Hospital h SET h.numberOfSeats = :Integer WHERE h.id = :id")
+    @Query("UPDATE Hospital h SET h.numberOfSeats = :numberOfSeats WHERE h.id = :id")
     @Transactional
     int updateHospitalSeats(@Param("id") Integer id, @Param("numberOfSeats") Integer numberOfSeats);
+
 }
 
