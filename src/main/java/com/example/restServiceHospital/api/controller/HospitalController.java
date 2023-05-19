@@ -62,7 +62,7 @@ public class HospitalController {
         else return "Not successful";
     }
 
-    @PostMapping("/hospital/cancel/{id}")
+    @PostMapping("/hospitals/cancel/{id}")
     public String cancelRequest(@PathVariable String id) {
         int rowsAffected = hospitalRepository.updateHospitalSeats(Integer.valueOf(id),hospitalRepository.findHospitalById(Integer.valueOf(id)).getNumberOfSeats()+1);
         if(rowsAffected > 0)
